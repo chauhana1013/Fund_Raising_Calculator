@@ -1,6 +1,5 @@
 import pandas
 
-
 # Checks that input is either a float or an integer that is more than zero. Takes in custom errors
 def num_check(question, error, num_type): 
     while True:
