@@ -1,7 +1,5 @@
 import pandas
 
-# Functions Here...
-
 # Checks that input is either a float or an integer that is more than zero. Takes in custom errors
 def num_check(question, error, num_type): 
     while True:
@@ -17,23 +15,6 @@ def num_check(question, error, num_type):
         except ValueError: 
             print(error)
 
-# Checks that user has enteres yes / no to a question
-def yes_no(question):
-
-    to_check = ["yes", "no"]
-
-    while True:
-
-        response = input(question).lower()
-
-        for var_item in to_check:
-            if response == var_item:
-                return response
-            elif response == var_item[0]:
-                return var_item
-        print("Please enter either yes or no...\n")
-
-# Checks that input was not blank, if blank, then the program outputs error message
 def not_blank(question, error):
     while True:
         response = input(question)
@@ -101,34 +82,20 @@ def get_expenses(var_fixed):
 
     return [expense_frame, sub_total]
 
+
 # Main Routine Here...
 
 # Get Product Name
-product_name = not_blank("Product Name: ", "The product name can't be blank")
+# product_name = not_blank("Product Name: ", "The product name can't be blank")
 
-# Get Variable Costs
-print("")
-variable_expenses = get_expenses("variable")
-variable_frame = variable_expenses[0]
-variable_sub = variable_expenses[1]
-
-# Get Fixed Costs
 fixed_expenses = get_expenses("fixed")
 fixed_frame = fixed_expenses[0]
 fixed_sub = fixed_expenses[1]
 
-
 # Printing Area
 
-print("***** Variable Costs *****")
-print(variable_frame)
 print()
-
-print(f"Variable Costs: ${variable_sub:.2f}")
-
-print("***** Fixed Costs Costs *****")
 print(fixed_frame[['Cost']])
 print()
 
 print(f"Fixed Costs: ${fixed_sub:.2f}")
-
