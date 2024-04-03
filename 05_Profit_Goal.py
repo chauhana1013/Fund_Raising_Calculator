@@ -23,7 +23,7 @@ def profit_goal(total_costs):
     while True:
         
         # Ask for Profit Goal...
-        response = input("What is your profit goal (eg $500 or ")
+        response = input("What is your profit goal (eg $500 or 50%) ")
 
         # Check if first character is $...
         if response [0] == "$":
