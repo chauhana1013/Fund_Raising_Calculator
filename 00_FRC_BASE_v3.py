@@ -206,7 +206,7 @@ print()
 # Get Product Name
 product_name = not_blank("Product Name: ", "The product name can't be blank")
 
-how_many = num_check("How many items will you be producing? ", "The number of items must be a whole number more than zeor", int)
+how_many = num_check("How many items will you be producing? ", "The number of items must be a whole number more than zero", int)
 
 
 print()
@@ -247,43 +247,42 @@ print(f"Selling Price (unrounded): ${selling_price:.2f}")
 recommended_price = round_up(selling_price, round_to)
 print(f"Recommended Price: ${recommended_price:.2f}")
 
+# Text string for printing / writing to file
+frc_heading = f"***** Fund Raising - {product_name} *****"
 
+variable_heading = f"***** Variable Costs *****"
 variable_txt = pandas.DataFrame.to_string(variable_frame)
-fixed_txt = pandas.DataFrame.to_string(fixed_frame)
+variable_sub_txt = f"Variable Costs Subtotal: ${variable_sub:.2f}"
 
-
-to_write = [product_name, variable_txt, fixed_txt, profit_target, required_sales, recommended_price]
-
-# Printing Area
-
-print()
-print(f"***** Fund Raising - {product_name} *****")
-print()
-expense_print("Variable", variable_frame, variable_sub)
+sales_heading = f"***** Sales Advise *****"
+required_sales = f"Sales Needed: ${sales_needed:.2f}"
+profit_target_txt = f"Profit Target: ${profit_target:.2f}"
+minimum_price_txt = f"Minimum Price: ${selling_price:.2f}"
+recommended_price_txt = f"Recommended Price: ${recommended_price:.2f}"
 
 if have_fixed == "yes":
-    expense_print("Fixed", fixed_frame[['Cost']], fixed_sub)
+    fixed_heading = f"***** Fixed Costs *****"
+    fixed_txt = pandas.DataFrame.to_string(fixed_frame)
+    fixed_sub_txt = f"Fixed Costs Subtotal: ${fixed_sub:.2f}"
+    
+    to_write = [frc_heading, variable_heading, variable_txt, variable_sub_txt, fixed_heading, fixed_txt, fixed_sub_txt, sales_heading, profit_target_txt, required_sales, minimum_price_txt, recommended_price_txt]
+    
+else:
+    fixed_heading = f"***** No Fixed Costs *****"
+
+    to_write = [frc_heading, variable_heading, variable_txt, variable_sub_txt, fixed_heading, sales_heading, profit_target_txt, required_sales, minimum_price_txt, recommended_price_txt]
 
 
-print()
-print(f"***** Total Costs: ${all_costs:.2f} *****")
-print()
-
-print()
-print("***** Profit & Sales Targets *****")
-print(f"Profit Target: ${profit_target:.2f}")
-print(f"Total Sales: ${all_costs + profit_target:.2f}")
-
-print()
-print("***** Pricing *****")
-print(f"Minimum Price: ${selling_price:.2f}")
-print(f"Recommended Price: ${recommended_price:.2f}")
+# Printing Area
 
 # Write to file...
 # Creat file to hold data (add .txt extension)
 file_name = f"{product_name}.txt"
 text_file = open(file_name, "w+")
 
+for item in to_write:
+    print(item)
+    print()
 # Heading
 for item in to_write:
     text_file.write(item)
